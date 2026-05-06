@@ -1,0 +1,33 @@
+{
+  "name": "raedat-revamp-be",
+  "version": "1.0.0",
+  "description": "This is a full redesign project for the Ra'edat website with Quality of Life improvements and more added features",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node --watch server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alialderazi17/Raedat-Revamp-BE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/alialderazi17/Raedat-Revamp-BE/issues"
+  },
+  "homepage": "https://github.com/alialderazi17/Raedat-Revamp-BE#readme",
+  "dependencies": {
+    "axios": "^1.16.0",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.6.1",
+    "morgan": "^1.10.1"
+  }
+}
