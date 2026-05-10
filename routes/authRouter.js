@@ -12,12 +12,6 @@ router.get(
   middleware.verifyToken,
   authController.checkSession
 )
-router.get(
-  "/",
-  middleware.stripToken,
-  middleware.verifyToken,
-  middleware.isAdmin,
-  authController.getAll
-)
+router.get("/", authController.getAll)
 
 module.exports = router
