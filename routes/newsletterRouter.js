@@ -12,4 +12,12 @@ router.post(
 
 router.get('/', NewsletterController.getAllNewsletters)
 
+router.put(
+  '/update/:id',
+  middleware.stripToken,
+  middleware.verifyToken,
+  middleware.isAdmin,
+  NewsletterController.updateNewsletter
+)
+
 module.exports = router

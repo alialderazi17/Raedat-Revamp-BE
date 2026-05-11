@@ -36,13 +36,27 @@ const getAllNewsletters = async (req, res) => {
   }
 }
 
-// const updateNewsletter = async (req, res) => {
-//   try {
-//     const newsletter = await Newsletter.findByIdAndUpdate(req.params.id)
-//   } catch (error) {
+const updateNewsletter = async (req, res) => {
+  try {
+    const updatedNewsletter = await Newsletter.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { returnDocument: 'after' }
+    )
 
-//   }
-// }
+    res.status(200).send(updatedNewsletter)
+  } catch (error) {
+    console.error(
+      '⚠️ An error has occurred updating newsletter!',
+      error.message
+    )
+    res.status(404).send({
+      status: 'Error',
+      msg: 'An error has occurred!!',
+      error: error.msg,
+    })
+  }
+}
 
 // {
 // 	"coverImage": "https://i.imgur.com/mytf4jg.png",
@@ -57,4 +71,5 @@ const getAllNewsletters = async (req, res) => {
 module.exports = {
   addNewsletter,
   getAllNewsletters,
+  updateNewsletter,
 }
