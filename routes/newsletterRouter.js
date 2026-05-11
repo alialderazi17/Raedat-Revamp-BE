@@ -20,4 +20,12 @@ router.put(
   NewsletterController.updateNewsletter
 )
 
+router.delete(
+  '/delete/:id',
+  middleware.stripToken,
+  middleware.verifyToken,
+  middleware.isAdmin,
+  NewsletterController.deleteNewsletter
+)
+
 module.exports = router
