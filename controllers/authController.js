@@ -88,9 +88,20 @@ const getStaffById = async (req, res) => {
 
 const updateStaff = async (req, res) => {
   try {
-    const updatedStaff = await User.findByIdAndUpdate(req.params.id, req.body, {
+    let updates = req.body
+
+    if (updates.password) {
+      updates.passwordDigest = await middleware.hashPassword(updates.password)
+      delete updates.password
+    }
+
+    const updatedStaff = await User.findByIdAndUpdate(req.params.id, updates, {
       new: true,
     })
+
+    if (!updatedStaff)
+      return res.status(404).json({ message: "Member not found" })
+
     res.json(updatedStaff)
   } catch (error) {
     res.status(500).json({ message: error.message })
