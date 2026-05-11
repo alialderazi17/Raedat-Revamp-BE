@@ -19,5 +19,11 @@ router.get(
   middleware.isAdmin,
   authController.getAll
 )
+router.get("/partner", authController.getPartner)
+
+router.get("/admin", authController.getAdmin)
+router.get("/:id", authController.getStaffById)
+router.put("/:id", authController.updateStaff)
+router.delete("/:id", authController.deleteStaff)
 
 module.exports = router
