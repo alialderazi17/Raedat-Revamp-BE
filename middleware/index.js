@@ -56,7 +56,7 @@ const isAdmin = (req, res, next) => {
 }
 const isStaff = (req, res, next) => {
   const { payload } = res.locals
-  if (payload && payload.role === "staff") {
+  if (payload && payload.role === "partner") {
     return next()
   }
   res.status(403).send({ status: "Error", msg: "Staff Access Only" })
