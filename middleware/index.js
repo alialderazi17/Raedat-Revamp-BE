@@ -1,11 +1,21 @@
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 require("dotenv").config({ quiet: true })
+const multer = require("multer")
 
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS)
 const APP_SECRET = process.env.APP_SECRET
 
 const hashPassword = async (password) => {
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_\-/*+#])[A-Za-z\d@$!%*?&_\-/*+#]{8,}$/ // gibberish for password validation
+
+  if (!passwordRegex.test(password)) {
+    throw new Error(
+      "Password recommendation: Use at least 8 characters, including uppercase, lowercase, a number, and a special character (@$!%*?&)."
+    )
+  }
+
   let hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
   return hashedPassword
 }
@@ -61,6 +71,17 @@ const isStaff = (req, res, next) => {
   }
   res.status(403).send({ status: "Error", msg: "Staff Access Only" })
 }
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads")
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9)
+    const extension = file.originalname.split(".").pop()
+    cb(null, `${file.fieldname}-${uniqueSuffix}.${extension}`)
+  },
+})
+const upload = multer({ storage: storage })
 
 module.exports = {
   hashPassword,
@@ -70,4 +91,5 @@ module.exports = {
   verifyToken,
   isAdmin,
   isStaff,
+  upload,
 }

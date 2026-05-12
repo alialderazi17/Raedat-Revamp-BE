@@ -1,30 +1,33 @@
-const router = require('express').Router()
-const middleware = require('../middleware')
-const NewsletterController = require('../controllers/newsletterController')
+const router = require("express").Router()
+const middleware = require("../middleware")
+const NewsletterController = require("../controllers/newsletterController")
 
 router.post(
-  '/',
-  middleware.stripToken,
-  middleware.verifyToken,
-  middleware.isAdmin,
+  "/",
+  middleware.upload.single("coverImage"),
+  // middleware.stripToken,
+  // middleware.verifyToken,
+  // middleware.isAdmin,
+  (req, res, next) => {
+    console.log(req)
+    console.log(req.file)
+    res.send("SUCESS")
+    next()
+  },
   NewsletterController.addNewsletter
 )
 
-router.get('/', NewsletterController.getAllNewsletters)
+router.get("/", NewsletterController.getAllNewsletters)
 
 router.put(
-  '/update/:id',
-  middleware.stripToken,
-  middleware.verifyToken,
-  middleware.isAdmin,
+  "/:id",
+
   NewsletterController.updateNewsletter
 )
 
 router.delete(
-  '/delete/:id',
-  middleware.stripToken,
-  middleware.verifyToken,
-  middleware.isAdmin,
+  "/:id",
+
   NewsletterController.deleteNewsletter
 )
 
