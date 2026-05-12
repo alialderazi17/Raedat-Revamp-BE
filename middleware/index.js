@@ -6,6 +6,15 @@ const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS)
 const APP_SECRET = process.env.APP_SECRET
 
 const hashPassword = async (password) => {
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_\-/*+#])[A-Za-z\d@$!%*?&_\-/*+#]{8,}$/
+
+  if (!passwordRegex.test(password)) {
+    throw new Error(
+      "Password recommendation: Use at least 8 characters, including uppercase, lowercase, a number, and a special character (@$!%*?&)."
+    )
+  }
+
   let hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
   return hashedPassword
 }
