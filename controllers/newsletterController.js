@@ -48,7 +48,7 @@ const updateNewsletter = async (req, res) => {
     )
 
     if (!updateNewsletters)
-      return res.status(404).json({ message: "Member not found" })
+      return res.status(404).json({ message: "Newsletter not found" })
 
     res.json(updateNewsletters)
   } catch (error) {

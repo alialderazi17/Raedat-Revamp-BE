@@ -23,6 +23,10 @@ const eventsSchema = new mongoose.Schema({
   RSVP: {
     type: Number,
     require: true,
+    default: 0,
+  },
+  capacity: {
+    type: Number,
   },
 
   // host: {

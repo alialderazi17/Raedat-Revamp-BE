@@ -2,13 +2,14 @@ const Event = require("../models/Event")
 
 const createEvent = async (req, res) => {
   try {
-    const { title, date, time, location, RSVP } = req.body
+    const { title, date, time, location, RSVP, capacity } = req.body
     const event = await Event.create({
       title,
       date,
       time,
       location,
       RSVP,
+      capacity,
     })
     res.send(event)
   } catch (error) {
