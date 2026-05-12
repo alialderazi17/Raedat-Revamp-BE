@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 require("dotenv").config({ quiet: true })
+const multer = require("multer")
 
 const SALT_ROUNDS = parseInt(process.env.SALT_ROUNDS)
 const APP_SECRET = process.env.APP_SECRET
@@ -70,6 +71,17 @@ const isStaff = (req, res, next) => {
   }
   res.status(403).send({ status: "Error", msg: "Staff Access Only" })
 }
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads")
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9)
+    const extension = file.originalname.split(".").pop()
+    cb(null, `${file.fieldname}-${uniqueSuffix}.${extension}`)
+  },
+})
+const upload = multer({ storage: storage })
 
 module.exports = {
   hashPassword,
@@ -79,4 +91,5 @@ module.exports = {
   verifyToken,
   isAdmin,
   isStaff,
+  upload,
 }
