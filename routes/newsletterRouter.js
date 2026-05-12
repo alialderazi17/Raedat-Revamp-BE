@@ -5,9 +5,15 @@ const NewsletterController = require("../controllers/newsletterController")
 router.post(
   "/",
   middleware.upload.single("coverImage"),
-  middleware.stripToken,
-  middleware.verifyToken,
-  middleware.isAdmin,
+  // middleware.stripToken,
+  // middleware.verifyToken,
+  // middleware.isAdmin,
+  (req, res, next) => {
+    console.log(req)
+    console.log(req.file)
+    res.send("SUCESS")
+    next()
+  },
   NewsletterController.addNewsletter
 )
 
@@ -15,17 +21,13 @@ router.get("/", NewsletterController.getAllNewsletters)
 
 router.put(
   "/:id",
-  middleware.stripToken,
-  middleware.verifyToken,
-  middleware.isAdmin,
+
   NewsletterController.updateNewsletter
 )
 
 router.delete(
   "/:id",
-  middleware.stripToken,
-  middleware.verifyToken,
-  middleware.isAdmin,
+
   NewsletterController.deleteNewsletter
 )
 
