@@ -5,10 +5,11 @@ const multer = require('multer')
 
 const PORT = process.env.PORT || 3000
 
-const authRouter = require('./routes/authRouter')
-const communityRouter = require('./routes/communityRouter')
-const newsletterRouter = require('./routes/newsletterRouter')
-const eventRouter = require('./routes/eventRouter')
+const authRouter = require("./routes/authRouter")
+const communityRouter = require("./routes/communityRouter")
+const newsletterRouter = require("./routes/newsletterRouter")
+const eventRouter = require("./routes/eventRouter")
+const requestRouter = require("./routes/requestRouter")
 
 const db = require('./db')
 const app = express()
@@ -19,10 +20,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/uploads', express.static('./uploads'))
 
-app.use('/auth', authRouter)
-app.use('/communities', communityRouter)
-app.use('/newsletter', newsletterRouter)
-app.use('/event', eventRouter)
+app.use("/auth", authRouter)
+app.use("/communities", communityRouter)
+app.use("/newsletter", newsletterRouter)
+app.use("/event", eventRouter)
+app.use("/request", requestRouter)
 
 app.get('/', (req, res) => {
   res.send("Server's Running!")
