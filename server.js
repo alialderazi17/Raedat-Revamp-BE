@@ -1,7 +1,7 @@
-const express = require("express")
-const cors = require("cors")
-const morgan = require("morgan")
-const multer = require("multer")
+const express = require('express')
+const cors = require('cors')
+const morgan = require('morgan')
+const multer = require('multer')
 
 const PORT = process.env.PORT || 3000
 
@@ -11,14 +11,14 @@ const newsletterRouter = require("./routes/newsletterRouter")
 const eventRouter = require("./routes/eventRouter")
 const requestRouter = require("./routes/requestRouter")
 
-const db = require("./db")
+const db = require('./db')
 const app = express()
 
 app.use(cors())
-app.use(morgan("dev"))
+app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
-app.use("/uploads", express.static("./uploads"))
+app.use('/uploads', express.static('./uploads'))
 
 app.use("/auth", authRouter)
 app.use("/communities", communityRouter)
@@ -26,7 +26,7 @@ app.use("/newsletter", newsletterRouter)
 app.use("/event", eventRouter)
 app.use("/request", requestRouter)
 
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.send("Server's Running!")
 })
 

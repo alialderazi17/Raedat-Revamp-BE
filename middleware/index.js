@@ -8,7 +8,7 @@ const APP_SECRET = process.env.APP_SECRET
 
 const hashPassword = async (password) => {
   const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_\-/*+#])[A-Za-z\d@$!%*?&_\-/*+#]{8,}$/
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_\-/*+#])[A-Za-z\d@$!%*?&_\-/*+#]{8,}$/ // gibberish for password validation
 
   if (!passwordRegex.test(password)) {
     throw new Error(
