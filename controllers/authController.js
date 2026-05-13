@@ -1,5 +1,5 @@
-const User = require("../models/User")
-const middleware = require("../middleware")
+const User = require('../models/User')
+const middleware = require('../middleware')
 
 const register = async (req, res) => {
   try {
@@ -9,7 +9,7 @@ const register = async (req, res) => {
     if (existingUser) {
       return res
         .status(400)
-        .send("A user with that email has already been registered!!")
+        .send('A user with that email has already been registered!!')
     } else {
       const user = await User.create({
         fullName,
@@ -34,17 +34,17 @@ const Login = async (req, res) => {
     if (matched) {
       let payload = {
         id: user._id,
-        name: user.name,
+        name: user.fullName,
         email: user.email,
         role: user.role,
       }
       let token = middleware.createToken(payload)
       return res.send({ user: payload, token })
     }
-    res.status(401).send({ status: "Error", msg: "Unauthorized" })
+    res.status(401).send({ status: 'Error', msg: 'Unauthorized' })
   } catch (error) {
     console.log(error)
-    res.status(401).send({ status: "Error", msg: "An error has occurred!!" })
+    res.status(401).send({ status: 'Error', msg: 'An error has occurred!!' })
   }
 }
 const checkSession = async (req, res) => {
@@ -61,7 +61,7 @@ const getAll = async (req, res) => {
 }
 const getAdmin = async (req, res) => {
   try {
-    const adminMembers = await User.find({ role: "admin" })
+    const adminMembers = await User.find({ role: 'admin' })
     res.json(adminMembers)
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -69,7 +69,7 @@ const getAdmin = async (req, res) => {
 }
 const getPartner = async (req, res) => {
   try {
-    const partners = await User.find({ role: "partner" })
+    const partners = await User.find({ role: 'partner' })
     res.json(partners)
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -79,7 +79,7 @@ const getPartner = async (req, res) => {
 const getStaffById = async (req, res) => {
   try {
     const staff = await User.findById(req.params.id)
-    if (!staff) return res.status(404).json({ message: "Member not found" })
+    if (!staff) return res.status(404).json({ message: 'Member not found' })
     res.json(staff)
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -100,7 +100,7 @@ const updateStaff = async (req, res) => {
     })
 
     if (!updatedStaff)
-      return res.status(404).json({ message: "Member not found" })
+      return res.status(404).json({ message: 'Member not found' })
 
     res.json(updatedStaff)
   } catch (error) {
@@ -111,12 +111,20 @@ const updateStaff = async (req, res) => {
 const deleteStaff = async (req, res) => {
   try {
     const deleted = await User.findByIdAndDelete(req.params.id)
-    if (!deleted) return res.status(404).json({ message: "Member not found" })
-    res.json({ message: "Deleted successfully" })
+    if (!deleted) return res.status(404).json({ message: 'Member not found' })
+    res.json({ message: 'Deleted successfully' })
   } catch (error) {
     res.status(500).json({ message: error.message })
   }
 }
+
+// const signOut = async (req,res) => {
+//   try {
+
+//   } catch (error) {
+
+//   }
+// }
 
 module.exports = {
   Login,
