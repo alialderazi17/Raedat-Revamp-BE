@@ -1,5 +1,5 @@
 const Request = require("../models/Request")
-
+const User = require("../models/User")
 const createRequest = async (req, res) => {
   try {
     const { companyName, number, email, message } = req.body
@@ -15,8 +15,8 @@ const createRequest = async (req, res) => {
         email,
         message,
       })
+      res.send(request)
     }
-    res.send(request)
   } catch (error) {
     console.error("Create request Error:", error)
     res.status(400).json({ error: error.message })
